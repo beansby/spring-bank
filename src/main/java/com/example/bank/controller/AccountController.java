@@ -69,7 +69,6 @@ public class AccountController {
 	public ResponseEntity<Integer> deposit(@RequestParam("id") String id, @RequestParam("money") Integer money){ 
 		ResponseEntity<Integer> res = null;
 		System.out.println(id);
-		//중복일 때 true, 중복이 아닐때(존재하지 않을때) false => 문자열
 		try {
 			Integer balance = accountService.deposit(id, money);
 			res = new ResponseEntity<Integer> (balance, HttpStatus.OK);
@@ -84,13 +83,27 @@ public class AccountController {
 	public ResponseEntity<Integer> withdraw(@RequestParam("id") String id, @RequestParam("money") Integer money){ 
 		ResponseEntity<Integer> res = null;
 		System.out.println(id);
-		//중복일 때 true, 중복이 아닐때(존재하지 않을때) false => 문자열
 		try {
 			Integer balance = accountService.withdraw(id, money);
 			res = new ResponseEntity<Integer> (balance, HttpStatus.OK);
 		} catch(Exception e) {
 			res = new ResponseEntity<Integer> (-1, HttpStatus.BAD_REQUEST);
-		}
+		} 
+		return res;
+	}
+	
+	// 계좌이체
+	@PostMapping("/transfer")
+	public ResponseEntity<Integer> transfer(@RequestParam("id_s") String id_s, @RequestParam("id_r") String id_r, @RequestParam("money") Integer money){ 
+		ResponseEntity<Integer> res = null;
+		System.out.println(id_s);
+		try {
+			Integer balance = accountService.transfer(id_s, id_r, money);
+			res = new ResponseEntity<Integer> (balance, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			res = new ResponseEntity<Integer> (-1, HttpStatus.BAD_REQUEST);
+		} 
 		return res;
 	}
 	

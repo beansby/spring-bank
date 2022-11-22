@@ -58,6 +58,26 @@ public class AccountService {
 		return acc.getBalance();
 	}
 	
+	// 계좌이체
+	public Integer transfer(String id_s, String id_r, Integer money) throws Exception{
+		Optional<Account> account_s = accountRepository.findById(id_s);
+		
+		if(!account_s.isPresent()) throw new Exception("보내는 계좌번호 오류");
+		Account acc_s = account_s.get();
+		
+		acc_s.withdraw(money);	// 이체금액 출금, 잔액 조회
+		Optional<Account> account_r = accountRepository.findById(id_r);
+		if(!account_r.isPresent()) throw new Exception("받는 계좌번호 오류");
+		
+		
+		Account acc_r = account_r.get();
+		acc_r.deposit(money); // 이체금액 입금
+		
+		accountRepository.save(acc_s);
+		accountRepository.save(acc_r);
+		return acc_s.getBalance(); // 이체한 뒤 잔액
+	}
+	
 	
 //	// 계좌 조회 (목록)
 //	public List<Account> findAccount(){ return accountRepository.findAll();}
