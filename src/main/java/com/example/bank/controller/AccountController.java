@@ -81,6 +81,7 @@ public class AccountController {
 	// 출금
 	@PostMapping("/withdraw")
 	public ResponseEntity<Integer> withdraw(@RequestParam("id") String id, @RequestParam("money") Integer money){ 
+		// 지역변수를 초기화하지 않으면 사용시 에러 발생 : try-catch에서 해주기 때문에 현재는 생략 가능  
 		ResponseEntity<Integer> res = null;
 		System.out.println(id);
 		try {

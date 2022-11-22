@@ -43,6 +43,7 @@ public class AccountService {
 		if(!account.isPresent()) throw new Exception("계좌번호 오류");
 		Account acc = account.get();
 		acc.deposit(money);
+
 		accountRepository.save(acc);
 		return acc.getBalance();
 	}
