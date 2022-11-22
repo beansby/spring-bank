@@ -27,6 +27,15 @@ public class AccountService {
 		return account.get();
 	}
 	
+	// 중복 여부 체크
+	public Boolean checkDoubleId(String id) throws Exception {
+		Optional<Account> account = accountRepository.findById(id);
+		// id가 있으면 true : 이미 존재하는 아이디
+		if(account.isPresent()) return true; 
+		// 사용 가능한 아이디 
+		return false;
+	}
+	
 	
 //	// 계좌 조회 (목록)
 //	public List<Account> findAccount(){ return accountRepository.findAll();}

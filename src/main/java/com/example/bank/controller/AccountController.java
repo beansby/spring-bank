@@ -49,4 +49,21 @@ public class AccountController {
 		return res;
 	}
 	
+	// 아이디 중복체크 : 타입이 형변환 되기 때문에 String으로 줄 필요없이 바로 Boolean으로 리턴
+	@PostMapping("/doubleid")
+	public ResponseEntity<Boolean> doubleId(@RequestParam("id") String id){ 
+		ResponseEntity<Boolean> res = null;
+		System.out.println(id);
+		//중복일 때 true, 중복이 아닐때(존재하지 않을때) false => 문자열
+		try {
+			Boolean isDouble = accountService.checkDoubleId(id);
+			res = new ResponseEntity<Boolean> (isDouble, HttpStatus.OK);
+		} catch(Exception e) {
+			res = new ResponseEntity<Boolean> (false, HttpStatus.BAD_REQUEST);
+		}
+		return res;
+	}
+	
+	
+	
 }
