@@ -64,6 +64,35 @@ public class AccountController {
 		return res;
 	}
 	
+	// 입금
+	@PostMapping("/deposit")
+	public ResponseEntity<Integer> deposit(@RequestParam("id") String id, @RequestParam("money") Integer money){ 
+		ResponseEntity<Integer> res = null;
+		System.out.println(id);
+		//중복일 때 true, 중복이 아닐때(존재하지 않을때) false => 문자열
+		try {
+			Integer balance = accountService.deposit(id, money);
+			res = new ResponseEntity<Integer> (balance, HttpStatus.OK);
+		} catch(Exception e) {
+			res = new ResponseEntity<Integer> (-1, HttpStatus.BAD_REQUEST);
+		}
+		return res;
+	}
+	
+	// 출금
+	@PostMapping("/withdraw")
+	public ResponseEntity<Integer> withdraw(@RequestParam("id") String id, @RequestParam("money") Integer money){ 
+		ResponseEntity<Integer> res = null;
+		System.out.println(id);
+		//중복일 때 true, 중복이 아닐때(존재하지 않을때) false => 문자열
+		try {
+			Integer balance = accountService.withdraw(id, money);
+			res = new ResponseEntity<Integer> (balance, HttpStatus.OK);
+		} catch(Exception e) {
+			res = new ResponseEntity<Integer> (-1, HttpStatus.BAD_REQUEST);
+		}
+		return res;
+	}
 	
 	
 }

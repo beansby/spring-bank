@@ -31,5 +31,16 @@ public class Account {
 	
 	@Column
 	private Integer balance;
+	
+	public void deposit(Integer money) {
+		this.balance += money;
+	}
+	
+	public void withdraw(Integer money) throws Exception {
+		if(this.balance < money) throw new Exception("잔액 부족");
+		this.balance -= money;
+	}
+	
+
 
 }

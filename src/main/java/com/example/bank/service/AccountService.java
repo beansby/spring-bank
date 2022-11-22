@@ -36,6 +36,28 @@ public class AccountService {
 		return false;
 	}
 	
+	// 입금 : 계좌 조회, 잔액 가져오기, balance + money
+	public Integer deposit(String id, Integer money) throws Exception{
+		Optional<Account> account = accountRepository.findById(id);
+		// 계좌번호 없으면 오류 출력
+		if(!account.isPresent()) throw new Exception("계좌번호 오류");
+		Account acc = account.get();
+		acc.deposit(money);
+		accountRepository.save(acc);
+		return acc.getBalance();
+	}
+
+	// 출금 : 계좌 조회, 잔액 가져오기, balance - money
+	public Integer withdraw(String id, Integer money) throws Exception{
+		Optional<Account> account = accountRepository.findById(id);
+		// 계좌번호 없으면 오류 출력
+		if(!account.isPresent()) throw new Exception("계좌번호 오류");
+		Account acc = account.get();
+		acc.withdraw(money);
+		accountRepository.save(acc);
+		return acc.getBalance();
+	}
+	
 	
 //	// 계좌 조회 (목록)
 //	public List<Account> findAccount(){ return accountRepository.findAll();}
