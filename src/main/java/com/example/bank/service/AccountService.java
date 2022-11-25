@@ -78,6 +78,13 @@ public class AccountService {
 		accountRepository.save(acc_r);
 		return acc_s.getBalance(); // 이체한 뒤 잔액
 	}
+
+	// 목록
+	public List<Account> findList() throws Exception{
+		List<Account> accs = accountRepository.findAll();
+		return accs;
+	}
+
 	
 	
 //	// 계좌 조회 (목록)

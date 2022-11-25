@@ -3,12 +3,15 @@ package com.example.bank.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bank.entity.Account;
 import com.example.bank.service.AccountService;
+
+import java.util.List;
 
 // 실제 뷰를 주지 않고 데이터를 내려보내줌(ResponseEntity를 통해) : 리턴 타입이 뷰가 아닌 데이터
 @RestController
@@ -105,6 +108,20 @@ public class AccountController {
 			e.printStackTrace();
 			res = new ResponseEntity<Integer> (-1, HttpStatus.BAD_REQUEST);
 		} 
+		return res;
+	}
+
+	@GetMapping("/accounts")
+	public ResponseEntity<List<Account>> findList(){
+		ResponseEntity<List<Account>> res = null;
+		List<Account> accs = null;
+		try {
+			accs = accountService.findList();
+			res = new ResponseEntity<List<Account>> (accs, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			res = new ResponseEntity<List<Account>> (accs, HttpStatus.BAD_REQUEST);
+		}
 		return res;
 	}
 	

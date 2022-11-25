@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,6 +42,8 @@ public class Account {
 		if(this.balance < money) throw new Exception("잔액 부족");
 		this.balance -= money;
 	}
+
+
 	
 
 
